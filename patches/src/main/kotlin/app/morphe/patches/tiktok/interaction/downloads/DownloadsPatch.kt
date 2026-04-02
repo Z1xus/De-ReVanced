@@ -10,6 +10,7 @@ import app.morphe.patcher.extensions.InstructionExtensions.addInstructions
 import app.morphe.patcher.extensions.InstructionExtensions.addInstructionsWithLabels
 import app.morphe.patcher.extensions.InstructionExtensions.getInstruction
 import app.morphe.patcher.extensions.InstructionExtensions.removeInstructions
+import app.morphe.patcher.patch.stringOption
 import app.morphe.patcher.patch.bytecodePatch
 import app.morphe.patches.tiktok.misc.extension.sharedExtensionPatch
 import app.morphe.patches.tiktok.misc.settings.SettingsStatusLoadFingerprint
@@ -23,6 +24,21 @@ import com.android.tools.smali.dexlib2.iface.instruction.ReferenceInstruction
 import com.android.tools.smali.dexlib2.iface.reference.FieldReference
 
 private const val EXTENSION_CLASS_DESCRIPTOR = "Lapp/morphe/extension/tiktok/download/DownloadsPatch;"
+private val DOWNLOAD_ROOTS = setOf("DCIM", "Movies", "Pictures")
+
+private fun isValidDownloadPath(path: String?): Boolean {
+    val normalizedPath = path?.trim().orEmpty()
+    val separatorIndex = normalizedPath.indexOf('/')
+    if (separatorIndex <= 0 || separatorIndex == normalizedPath.lastIndex) return false
+
+    val root = normalizedPath.substring(0, separatorIndex)
+    if (root !in DOWNLOAD_ROOTS) return false
+
+    val childPath = normalizedPath.substring(separatorIndex + 1)
+    if (childPath.startsWith('/') || childPath.endsWith('/')) return false
+
+    return childPath.split('/').all(String::isNotBlank)
+}
 
 @Suppress("unused")
 val downloadsPatch = bytecodePatch(
@@ -33,7 +49,23 @@ val downloadsPatch = bytecodePatch(
 
     compatibleWith(*AppCompatibilities.tiktok4383())
 
+    val downloadPath by stringOption(
+        key = "downloadPath",
+        default = "DCIM/TikTok",
+        title = "Download path",
+        description = "Relative path for downloaded videos. Must start with DCIM/, Movies/, or Pictures/.",
+        required = true,
+    ) {
+        isValidDownloadPath(it)
+    }
+
     execute {
+        val configuredDownloadPath = downloadPath!!.trim()
+
+        mutableClassDefBy(classDefBy(EXTENSION_CLASS_DESCRIPTOR)).methods.first {
+            it.name == "getDownloadPath" && it.parameterTypes.isEmpty() && it.returnType == "Ljava/lang/String;"
+        }.returnEarly(configuredDownloadPath)
+
         SettingsStatusLoadFingerprint.method.addInstruction(
             0,
             "invoke-static {}, Lapp/morphe/extension/tiktok/settings/SettingsStatus;->enableDownload()V",
