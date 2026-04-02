@@ -1,3 +1,10 @@
+## [1.0.4](https://github.com/Z1xus/De-ReVanced/compare/v1.0.3...v1.0.4) (2026-04-02)
+
+
+### Bug Fixes
+
+* expose TikTok download path as patch option ([9a6f439](https://github.com/Z1xus/De-ReVanced/commit/9a6f4398497c80cedd47babb276ddea36b8d041d))
+
 ## [1.0.3](https://github.com/RookieEnough/De-ReVanced/compare/v1.0.2...v1.0.3) (2026-04-02)
 
 
