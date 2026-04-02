@@ -709,7 +709,17 @@
           ]
         }
       ],
-      "options": []
+      "options": [
+        {
+          "key": "downloadPath",
+          "title": "Download path",
+          "description": "Relative path for downloaded videos. Must start with DCIM/, Movies/, or Pictures/.",
+          "required": true,
+          "type": "kotlin.String",
+          "default": "DCIM/TikTok",
+          "values": null
+        }
+      ]
     },
     {
       "name": "Enable CustomTabs",
