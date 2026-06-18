@@ -1,3 +1,37 @@
+## [1.0.4](https://github.com/Z1xus/De-ReVanced/compare/v1.0.3...v1.0.4) (2026-06-18)
+
+
+### Bug Fixes
+
+* avoid forcing Photos frictionless login ([9cb1e11](https://github.com/Z1xus/De-ReVanced/commit/9cb1e117551bf759c11163417cef160b3f9bac37))
+* expose TikTok download path as patch option ([0bb60e6](https://github.com/Z1xus/De-ReVanced/commit/0bb60e67f33bfc4e20205fee86cefe6a6674d162))
+* release v1.0.4 (Photos account persistence + TikTok defaults) ([b04a57e](https://github.com/Z1xus/De-ReVanced/commit/b04a57e97d82d8e236e0979ff1069c540380f353))
+* stabilize Google Photos GmsCore support ([b3ef0b6](https://github.com/Z1xus/De-ReVanced/commit/b3ef0b672fd411d468fc80ca827056266352ba14))
+
+
+
+
+
+### Bug Fixes
+
+* avoid forcing Photos frictionless login ([9cb1e11](https://github.com/RookieEnough/De-Vanced/commit/9cb1e117551bf759c11163417cef160b3f9bac37))
+* release v1.0.4 (Photos account persistence + TikTok defaults) ([b04a57e](https://github.com/RookieEnough/De-Vanced/commit/b04a57e97d82d8e236e0979ff1069c540380f353))
+* stabilize Google Photos GmsCore support ([b3ef0b6](https://github.com/RookieEnough/De-Vanced/commit/b3ef0b672fd411d468fc80ca827056266352ba14))
+
+
+
+
+
+### Bug Fixes
+
+* **Google Photos:** fix “Select account” prompt on every restart under MicroG by preventing internal account-selection validation from clearing the selected account (tested on **7.66.00**).
+* **Google Recorder:** improve `Remove device restrictions` fingerprint reliability with `custom` matching plus a bytecode-content fallback when class names move.
+
+### TikTok
+
+* Enable **all** TikTok patches by default on **43.6.2** and **43.8.3**.
+* Keep **Settings** + **Enable Open Debug** as **43.6.2-only** (not compatible with 43.8.3).
+
 ## [1.0.4](https://github.com/RookieEnough/De-Vanced/compare/v1.0.3...v1.0.4) (2026-05-13)
 
 
